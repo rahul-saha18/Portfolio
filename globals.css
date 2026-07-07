@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: var(--font-bebas-neue), sans-serif;
+  --font-sans: var(--font-inter), sans-serif;
+  --color-primary-red: #D90429;
+  --color-secondary-red: #8B0000;
+  
+  /* Semantic Variables mapped to CSS Custom Properties */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-gray-zinc: var(--gray-zinc);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+}
+
+/* Default Dark Theme variables */
+:root {
+  --background: #0B0B0B;
+  --foreground: #FFFFFF;
+  --gray-zinc: #A1A1AA;
+  --card-bg: rgba(18, 18, 18, 0.6);
+  --card-border: rgba(255, 255, 255, 0.05);
+}
+
+/* Light Theme overrides */
+html.light {
+  --background: #F5F5F7;
+  --foreground: #0B0B0B;
+  --gray-zinc: #52525B;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.06);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272A;
+  border-radius: 4px;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #D4D4D8;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D90429;
+}
+
+/* Noise Background Overlay */
+.noise-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+html.light .noise-bg {
+  opacity: 0.02; /* Softer noise overlay for light mode */
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(217, 4, 41, 0.03);
+  border-color: rgba(217, 4, 41, 0.2);
+  box-shadow: 0 10px 30px -15px rgba(217, 4, 41, 0.15);
+  transform: translateY(-4px);
+}
+
+html.light .glass-panel-hover:hover {
+  background: rgba(217, 4, 41, 0.02);
+  border-color: rgba(217, 4, 41, 0.2);
+  box-shadow: 0 15px 35px -15px rgba(217, 4, 41, 0.1);
+}
+
+/* Text glow effects */
+.text-glow {
+  text-shadow: 0 0 15px rgba(217, 4, 41, 0.4);
+}
+
+html.light .text-glow {
+  text-shadow: 0 0 12px rgba(217, 4, 41, 0.2);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+  color: transparent;
+}
+
+html.light .text-stroke {
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.06);
+}
+
+.text-stroke-red {
+  -webkit-text-stroke: 1px rgba(217, 4, 41, 0.3);
+  color: transparent;
+}
+
+/* Hide standard cursor when custom cursor is active on desktop */
+@media (pointer: fine) {
+  body, a, button, input, textarea {
+    cursor: none !important;
+  }
+}
+
+/* Custom styles for Lenis smooth scrolling */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overflow: clip;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
